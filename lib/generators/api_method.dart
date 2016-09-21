@@ -6,8 +6,8 @@ import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:source_gen_experimentation/annotations/api_method.dart';
 
-class ApiMethodGenerator extends GeneratorForAnnotation<ApiMethod> {
-  const ApiMethodGenerator();
+class ApiMethodAnnotationGenerator extends GeneratorForAnnotation<ApiMethod> {
+  const ApiMethodAnnotationGenerator();
 
   @override
   Future<String> generateForAnnotatedElement(
