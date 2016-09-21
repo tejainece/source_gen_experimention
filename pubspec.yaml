@@ -1,0 +1,7 @@
+name: source_gen_experimentation
+version: 0.0.1
+description: A simple console application.
+
+dependencies:
+  source_gen: 0.5.1+3
+  build: 0.4.1
