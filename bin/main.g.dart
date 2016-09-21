@@ -3,8 +3,17 @@
 part of main;
 
 // **************************************************************************
-// Generator: ApiClass
+// Generator: Group
 // Target: class TestApi
 // **************************************************************************
 
-// TestApi test v1
+abstract class JaguarTestApi {
+  static RouteInfo _routeget = const RouteInfo('/get', methods: const <String>[
+    'GET',
+  ]);
+  Future<Null> handleRequest(HttpRequest request) async {
+    if (_routeget.doesMatch(request.uri.path, request.method)) {
+      return get();
+    }
+  }
+}

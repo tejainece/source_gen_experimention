@@ -2,21 +2,55 @@ library main;
 
 import 'dart:async';
 
-import 'package:source_gen_experimentation/annotations/api_class.dart';
-import 'package:source_gen_experimentation/annotations/api_method.dart';
+import 'package:source_gen_experimentation/annotations/annotations.dart';
+import 'dart:io';
 
 part 'main.g.dart';
 
-void main(List<String> args) {
-  TestApi test = new TestApi();
+class MockHttpRequest implements HttpRequest {
+  MockHttpRequest(this._uri, this._method);
+
+  int get contentLength => 10;
+
+  final String _method;
+
+  String get method => 'GET';
+
+  final Uri _uri;
+
+  Uri get uri => _uri;
+
+  Uri get requestedUri => _uri;
+
+  HttpHeaders get headers => null;
+
+  List<Cookie> get cookies => null;
+
+  bool get persistentConnection => null;
+
+  X509Certificate get certificate => null;
+
+  HttpSession get session => null;
+
+  String get protocolVersion => null;
+
+  HttpConnectionInfo get connectionInfo => null;
+
+  HttpResponse get response => null;
 }
 
-@ApiClass(name: 'test', version: 'v1')
-class TestApi {
+main(List<String> args) async {
+  TestApi test = new TestApi();
+
+  print(await test.handleRequest(new MockHttpRequest(new Uri.http("jaguar.com", "/api/get", {}), 'GET')));
+}
+
+@Group(urlPrefix: '/api', version: 'v1')
+class TestApi extends Object with JaguarTestApi {
   int a = 12;
 
-  @ApiMethod(methods: const ['GET'])
-  Future<Null> get() async {
-    print("test");
+  @Route(urlTemplate: "/get", methods: const ['GET'])
+  String get() {
+    return "data";
   }
 }
